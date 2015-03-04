@@ -1,0 +1,20 @@
+<input type="text" ng-model="main.filtro" />
+<input type="button" ng-click="main.log()" value="add" />
+<table>
+	<thead>
+		<tr>			
+			<th>ID</th>
+			<th>Name</th>
+			<th>Tag</th>
+			<th>Quantity</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="product in main.productos | filter:main.filtro">			
+			<td>{{ product.id }}</td>
+			<td>{{ product.name }}</td>
+			<td>{{ product.tag }}</td>
+			<td><input type="number" scale="1" ng-model="product.quantity" /></td>
+		</tr>
+	</tbody>
+</table>
