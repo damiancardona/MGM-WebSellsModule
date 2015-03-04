@@ -1,0 +1,14 @@
+{
+  "name": "MGM-Ventas",
+  "version": "1.0.0",
+  "description": "Modulo de ventas online para viajantes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mapplics",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.3.12"
+  }
+}
