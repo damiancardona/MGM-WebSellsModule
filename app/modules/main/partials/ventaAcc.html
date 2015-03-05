@@ -1,0 +1,33 @@
+<ul  ng-show='verBotonCargarCliente'><button ng-click="main.cargarCliente()">LOAD</button><BR></ul>
+Cliente: <select ng-model="correctlySelected"
+                ng-options="cl as cl.nombre for cl in clientes">
+            </select>
+<br>
+<ul  ng-show='!verBotonCargarCliente'>
+Datos del Cliente Seleccionado:<br>
+Nombre: {{correctlySelected.nombre}}	<br>
+Codigo:	{{correctlySelected.codigo}}    <br>
+E-Mail: {{correctlySelected.mail}}	<br>
+<br></ul>
+
+<table ng-show='false'>
+	<thead>
+		<tr>			
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="vta in main.ventas">			
+			<td></td>
+			<td>{{ vta.cliente }}</td>
+			<td>{{ vta.fecha }}</td>
+			<td>${{ vta.monto }}</td>
+			<td>{{ vta.Items }}</td>
+			<td><input type="button" ng-click="main.editar(vta)" value="Ver" /></td>
+		</tr>
+	</tbody>
+</table>

@@ -28,5 +28,25 @@ app.config([
 				}
 			})
 
+			.state("ventasList", {
+				url: "/ventasList",
+				views: {
+					"pageView": {
+						templateUrl: "modules/main/partials/ventasList.html",
+						controller: "MainController as main"
+					}
+				}
+			})
+
+			.state("ventasAcc", {
+				url: "/nuevaVenta",
+				views: {
+					"pageView": {
+						templateUrl: "modules/main/partials/ventaAcc.html",
+						controller: "MainController as main"
+					}
+				}
+			})
+
 	}
 ]);

@@ -1,0 +1,22 @@
+<input type="button" ng-click="main.loadVentas()" value="LOAD" />
+<table>
+	<thead>
+		<tr>			
+			<th></th>
+			<th>Cliente</th>
+			<th>Fecha</th>
+			<th>Monto</th>
+			<th>N° Items</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="vta in main.ventas">			
+			<td></td>
+			<td>{{ vta.cliente }}</td>
+			<td>{{ vta.fecha }}</td>
+			<td>${{ vta.monto }}</td>
+			<td>{{ vta.Items }}</td>
+			<td><input type="button" ng-click="main.editar(vta)" value="Ver" /></td>
+		</tr>
+	</tbody>
+</table>
