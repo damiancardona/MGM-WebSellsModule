@@ -23,7 +23,7 @@ app.config([
 				views: {
 					"pageView": {
 						templateUrl: "modules/main/partials/login.html",
-						controller: "MainController as main"
+						controller: "MainController as main",
 					}
 				}
 			})
@@ -38,12 +38,12 @@ app.config([
 				}
 			})
 
-			.state("ventasAcc", {
+			.state("nuevaVenta", {
 				url: "/nuevaVenta",
 				views: {
 					"pageView": {
 						templateUrl: "modules/main/partials/ventaAcc.html",
-						controller: "MainController as main"
+						controller: "SellsController as main"
 					}
 				}
 			})

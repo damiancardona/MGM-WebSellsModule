@@ -1,33 +1,76 @@
-<ul  ng-show='verBotonCargarCliente'><button ng-click="main.cargarCliente()">LOAD</button><BR></ul>
-Cliente: <select ng-model="correctlySelected"
-                ng-options="cl as cl.nombre for cl in clientes">
+<ul  ng-show='main.verCarga'>
+	<button ng-click="main.loadClientes()">LOAD</button><BR>
+</ul>
+Cliente: <select ng-model="main.selected"
+                ng-options="cl as cl.nombre for cl in main.clientes">
             </select>
 <br>
-<ul  ng-show='!verBotonCargarCliente'>
+<ul  ng-show='!main.verCarga'>
 Datos del Cliente Seleccionado:<br>
-Nombre: {{correctlySelected.nombre}}	<br>
-Codigo:	{{correctlySelected.codigo}}    <br>
-E-Mail: {{correctlySelected.mail}}	<br>
+Nombre: {{main.selected.nombre}}<br>
+Codigo:	{{main.selected.codigo}}<br>
+E-Mail: {{main.selected.mail}}	<br>
 <br></ul>
 
-<table ng-show='false'>
+<table ng-show='!main.verCarga'>
 	<thead>
 		<tr>			
 			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
+			<th>Nombre</th>
+			<th>Codigo</th>
+			<th>$ x U.</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="vta in main.ventas">			
+		<tr ng-repeat="prod in main.productos">			
 			<td></td>
-			<td>{{ vta.cliente }}</td>
-			<td>{{ vta.fecha }}</td>
-			<td>${{ vta.monto }}</td>
-			<td>{{ vta.Items }}</td>
-			<td><input type="button" ng-click="main.editar(vta)" value="Ver" /></td>
+			<td>{{ prod.nombre }}</td>
+			<td>{{ prod.codigo }}</td>
+			<td>${{ prod.precioUnitario }}</td>
+			<td><input type="button" ng-click="main.addLineaVenta(prod)" value="Agregar" /></td>
 		</tr>
 	</tbody>
 </table>
+
+<table ng-show='!main.verCarga'>
+	<thead>
+		<tr>			
+			<th></th>
+			<th>Producto</th>
+			<th>Codigo</th>
+			<th>$ x U.</th>
+			<th>Cantidad</th>
+			<th>Precio</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="linea in main.lineasVenta">			
+			<td></td>
+			<td>{{linea.prod.nombre }}</td>
+			<td>{{linea.prod.codigo }}</td>
+			<td>{{linea.prod.precioUnitario }}</td>
+			<td><input type="number" scale="1" ng-model="linea.cant"  min=0 max=9999 /></td>
+			<td>{{linea.prod.precioUnitario * linea.cant}} </td>
+			<td><input type="button" ng-click="main.delete(linea)" value="Eliminar" /></td>			
+		</tr>
+		<tr>
+			<td></td>
+			<td>TOTAL</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>_______________</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>{{main.tot}} </td>
+		</tr>
+	</tbody>
+</table>
+<input type="button" ng-click="main.closeVenta(main.selected)" value="Cerrar" />

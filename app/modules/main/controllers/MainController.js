@@ -6,11 +6,34 @@ app.controller('MainController', [
 
 		this.user={name:'', pass:''};
 
-		this.productos = [{id:1, name:"Prod 1", tag:"001", quantity: 0},{id:2, name:"Prod 2", tag:"002", quantity: 0},{id:3, name:"Prod 3", tag:"003", quantity: 0}];
+
+		this.productos = [
+			{
+				id:1, 
+				name:"nn", 
+				tag:"dfas" ,
+				quantity: 0
+			},
+			{
+				id:2, 
+				name:"Prod 2", 
+				tag:"002", 
+				quantity: 0
+			},
+			{
+				id:3, 
+				name:"Prod 3", 
+				tag:"003", 
+				quantity: 0
+			}
+		];
 
 		this.ventas =[];
+
 		$scope.clientes=[];
+
 		$scope.verBotonCargarCliente = true;
+
 		this.filtro = "";
 		try{
 			this.ClienteSeleccionado = this.clientes[0];
@@ -97,5 +120,17 @@ app.controller('MainController', [
 			console.log($scope.clientes);
 
 		}
-	}
-]);
+
+		this.sum = function(){
+			var rta = 0;
+			angular.forEach(that.productos,
+				function(value, key){
+					rta=MathService.add(rta, value.quantity);
+			});
+			alert(rta);
+		};
+
+		this.prod = function(){
+			alert('Vendido a:'+venta.cliente+' un monto de :'+venta.monto);
+		};
+}]);
