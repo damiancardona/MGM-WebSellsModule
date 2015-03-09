@@ -9,7 +9,16 @@ app.controller('SellsController', [
 		this.verCarga = true;		
 		this.clientes = [];		
 		this.productos = [];
-		this.lineasVenta=[];
+		this.lineasVenta={
+			lineas: [],
+			getTotal: function(){
+				var sum = 0;
+				lineas.forEach(function(line){
+					sum=sum+(line.cant*line.prod.precioUnitario);
+					return sum;
+				});
+			}
+		};
 
 		this.loadClientes = function(){
 			that.clientes.push({
@@ -47,19 +56,22 @@ app.controller('SellsController', [
 				id: 1,
 				nombre: 'COCINA 550 STYLE',
 				codigo: '18045',
-				precioUnitario: 210.58
+				precioUnitario: 210.58,
+				selectedProduct: false
 			});
 			that.productos.push({
 				id: 2,
 				nombre: 'COCINA 600 STYLE',
 				codigo: '18049',
-				precioUnitario: 254.37
+				precioUnitario: 254.37,
+				selectedProduct: false
 			});
 			that.productos.push({
 				id: 3,
 				nombre: 'COCINA 900 STYLE',
 				codigo: '18057',
-				precioUnitario: 349.99
+				precioUnitario: 349.99,
+				selectedProduct: false
 			});
 		};
 
@@ -77,7 +89,13 @@ app.controller('SellsController', [
 				subTotal:0
 			};
 			that.recalculaPrecio(linea);
-			that.lineasVenta.push(linea);
+			that.lineasVenta.lineas.push(linea);
+
+			that.productos.forEach(function(prods){
+				if(prods.id == producto.id){
+					prods.selectedProduct=!(prods.selectedProduct);
+				}
+			})
 		};
 
 		this.recalculaPrecio=function(linea){ 
@@ -87,18 +105,18 @@ app.controller('SellsController', [
 
 		this.recalculaTotal=function(){ 
 			that.tot=0;
-			angular.forEach(that.lineasVenta, function(value, key){
+			angular.forEach(that.lineasVenta.lineas, function(value, key){
 					that.tot=that.tot+value.prod.precioUnitario*value.cant;
 				});
 		};
 
 		this.closeVenta=function(cliente){
 			try{
-				angular.forEach(that.lineasVenta, function(value, key){
+				angular.forEach(that.lineasVenta.lineas, function(value, key){
 					that.tot=that.tot+value.prod.precioUnitario;
 				});
 				venta={
-					lineas: that.lineasVenta,
+					lineas: that.lineasVenta.lineas,
 					id_cliente: cliente.id,
 					total: that.tot
 				};
@@ -108,9 +126,17 @@ app.controller('SellsController', [
 			}
 		};
 
-		this.delete=function(linea){ 
-			that.lineasVenta.splice(that.lineasVenta.indexOf( linea ) , 1); 
+		this.delete=function(linea){
+			that.lineasVenta.lineas.splice(that.lineasVenta.lineas.indexOf( linea ) , 1); 
 			that.recalculaTotal();
+
+			//vuelvo a habilitar q agreguen el producto
+
+			that.productos.forEach(function(p){
+				if(linea.prod.id==p.id){
+					p.selectedProduct=false;
+				}
+			});
 		};
 
 	}

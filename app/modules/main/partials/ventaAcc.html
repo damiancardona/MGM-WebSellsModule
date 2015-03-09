@@ -24,11 +24,14 @@ E-Mail: {{main.selected.mail}}	<br>
 	</thead>
 	<tbody>
 		<tr ng-repeat="prod in main.productos">			
-			<td></td>
+			<td></td>	
 			<td>{{ prod.nombre }}</td>
 			<td>{{ prod.codigo }}</td>
 			<td>${{ prod.precioUnitario }}</td>
-			<td><input type="button" ng-click="main.addLineaVenta(prod)" value="Agregar" /></td>
+			<td>
+				<input ng-if="!prod.selectedProduct" type="button" ng-click="main.addLineaVenta(prod)" value="Agregar" />
+				<span ng-if="prod.selectedProduct">Agregado</span>
+			</td>
 		</tr>
 	</tbody>
 </table>
@@ -46,12 +49,12 @@ E-Mail: {{main.selected.mail}}	<br>
 		</tr>
 	</thead>
 	<tbody>
-		<tr ng-repeat="linea in main.lineasVenta">			
+		<tr ng-repeat="linea in main.lineasVenta.lineas">			
 			<td></td>
 			<td>{{linea.prod.nombre }}</td>
 			<td>{{linea.prod.codigo }}</td>
 			<td>{{linea.prod.precioUnitario }}</td>
-			<td><input type="number" scale="1" ng-model="linea.cant"  min=0 max=9999 /></td>
+			<td><input type="number" scale="1" ng-model="linea.cant"  min=0 max=9999/></td>
 			<td>{{linea.prod.precioUnitario * linea.cant}} </td>
 			<td><input type="button" ng-click="main.delete(linea)" value="Eliminar" /></td>			
 		</tr>
@@ -70,6 +73,7 @@ E-Mail: {{main.selected.mail}}	<br>
 			<td></td>
 			<td></td>
 			<td>{{main.tot}} </td>
+			<td><button ng-click="main.recalculaTotal()">ACTUALIZAR</button> </td>
 		</tr>
 	</tbody>
 </table>
